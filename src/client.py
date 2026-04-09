@@ -57,7 +57,10 @@ class MiniMaxClient:
         data = resp.json()
         if "data" in data and "audio" in data["data"]:
             import base64
-            return base64.b64decode(data["data"]["audio"])
+            audio_b64 = data["data"]["audio"]
+            # Fix padding if needed
+            audio_b64 += "=" * (-len(audio_b64) % 4)
+            return base64.b64decode(audio_b64)
         if "extra_info" in data:
             raise RuntimeError(f"MiniMax TTS error: {data.get('base_resp', data)}")
         raise RuntimeError(f"Unexpected TTS response: {data}")
@@ -82,7 +85,9 @@ class MiniMaxClient:
         data = resp.json()
         if "data" in data and "audio" in data["data"]:
             import base64
-            return base64.b64decode(data["data"]["audio"])
+            audio_b64 = data["data"]["audio"]
+            audio_b64 += "=" * (-len(audio_b64) % 4)
+            return base64.b64decode(audio_b64)
         raise RuntimeError(f"Unexpected music generation response: {data}")
 
     def chat(
