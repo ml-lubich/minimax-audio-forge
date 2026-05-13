@@ -46,6 +46,7 @@ flowchart LR
 - [Project structure](#project-structure)
 - [License](#license)
 - [🗺️ Repository map](#️-repository-map)
+- [📊 Code composition](#-code-composition)
 
 ## Generation pipeline (algorithm)
 
@@ -167,4 +168,17 @@ mindmap
     files
       README.md
       requirements.txt
+```
+
+
+## 📊 Code composition
+
+File-type breakdown of source under this repo (skips `.git`, `node_modules`, build caches, lockfiles).
+
+```mermaid
+pie showData title File-type composition of minimax-audio-forge (11 files)
+    "Python" : 6
+    "Text" : 2
+    "Other" : 2
+    "Markdown" : 1
 ```
