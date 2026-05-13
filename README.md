@@ -45,6 +45,7 @@ flowchart LR
 - [Environment variables](#environment-variables)
 - [Project structure](#project-structure)
 - [License](#license)
+- [🗺️ Repository map](#️-repository-map)
 
 ## Generation pipeline (algorithm)
 
@@ -144,3 +145,26 @@ python cli.py voices
 ## License
 
 MIT
+
+
+## 🗺️ Repository map
+
+Top-level layout of `minimax-audio-forge` rendered as a Mermaid mindmap (auto-generated from the on-disk tree).
+
+```mermaid
+mindmap
+  root((minimax-audio-forge))
+    output/
+      story.txt
+      story_narration.mp3
+      tts_output.mp3
+    src/
+      __init__.py
+      client.py
+      music.py
+      story.py
+      tts.py
+    files
+      README.md
+      requirements.txt
+```
