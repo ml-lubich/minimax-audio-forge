@@ -38,11 +38,58 @@ flowchart LR
 ## Table of contents
 
 - [Features](#features)
+- [Generation pipeline (algorithm)](#generation-pipeline-algorithm)
+- [Story narration sequence](#story-narration-sequence)
 - [Setup](#setup)
 - [Usage](#usage)
 - [Environment variables](#environment-variables)
 - [Project structure](#project-structure)
 - [License](#license)
+
+## Generation pipeline (algorithm)
+
+```mermaid
+flowchart LR
+    A([cli.py prompt])
+    B{"subcommand?"}
+    C["tts.py<br/>build TTS payload"]
+    D["music.py<br/>build music payload"]
+    E["story.py<br/>LLM gen story"]
+    F["client.py<br/>POST MiniMax"]
+    G["recv mp3 / wav bytes"]
+    H["write output/&lt;name&gt;.mp3"]
+    Z([done])
+    A --> B
+    B -- speak --> C --> F --> G --> H --> Z
+    B -- music --> D --> F
+    B -- story --> E --> C
+    B -- voices --> F
+```
+
+## Story narration sequence
+
+```mermaid
+sequenceDiagram
+    participant U as user
+    participant CLI as cli.py story
+    participant S as story.py
+    participant T as tts.py
+    participant C as client.py
+    participant MM as MiniMax
+
+    U->>CLI: "a detective on Mars"
+    CLI->>S: generate(prompt)
+    S->>C: chat(LLM)
+    C->>MM: completion
+    MM-->>C: story text
+    C-->>S: text
+    S->>T: speak(text, voice)
+    T->>C: tts request
+    C->>MM: tts
+    MM-->>C: mp3 bytes
+    C-->>T: bytes
+    T-->>U: output/story.mp3
+```
 
 ## Features
 
